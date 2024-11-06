@@ -12,7 +12,7 @@ public interface CustomerDao {
     List<Customer> selectAllCustomers();
     Optional<Customer> selectCustomerById(long id);
     void insertCustomer(Customer customer);
-    boolean existsPesonWithEmail(String email);
+    boolean existsCustomerWithEmail(String email);
 
     boolean existsWithId(long id);
 
