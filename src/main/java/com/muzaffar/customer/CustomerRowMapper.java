@@ -22,4 +22,5 @@ public class CustomerRowMapper implements RowMapper<Customer> {
                 rs.getInt("age")
         );
     }
+
 }

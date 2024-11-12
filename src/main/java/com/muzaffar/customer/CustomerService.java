@@ -26,10 +26,10 @@ public class CustomerService {
         return customerDao.selectAllCustomers();
     }
 
-    public Customer getCustomerById(int id) {
+    public Customer getCustomerById(long id) {
         return customerDao.selectCustomerById(id)
                 .orElseThrow(
-                        () -> new ResourceNotFoundException("Customer with id " + id + " not found")
+                        () -> new ResourceNotFoundException("Customer with id [" + id + "] not found")
                 );
     }
 
@@ -46,7 +46,7 @@ public class CustomerService {
     }
 
 
-    public void deleteCustomerById(Integer id) {
+    public void deleteCustomerById(Long id) {
         if (!customerDao.existsWithId(id)) {
             throw new ResourceNotFoundException("Customer with id [" + id + "] not found");
         }
@@ -54,14 +54,9 @@ public class CustomerService {
         customerDao.deleteById(id);
     }
 
-    public void editCustomerById(Integer id, CustomerEditRequest request) {
-        var customerOptional = customerDao.selectCustomerById(id);
 
-        if (customerOptional.isEmpty()) {
-            throw new ResourceNotFoundException("Customer with id [" + id + "] not found");
-        }
-
-        var customer = customerOptional.get();
+    public void editCustomerById(Long id, CustomerEditRequest request) {
+        var customer = getCustomerById(id);
 
         boolean changesMade = false;
         if (request.name() != null && !request.name().equals(customer.getName())) {
