@@ -9,10 +9,28 @@ services:
     volumes:
       - postgres:/data/postgres
     ports:
-      - "5332:5432"
+      - "5432:5432"
     networks:
       - postgres
     restart: unless-stopped
+  full-stack-api:
+    container_name: full-stack-api
+    image: mmuratov/full-stack-professional
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/customer
+    ports:
+      - "1011:1015"
+    networks:
+      - postgres
+    depends_on:
+      - db
+    restart: unless-stopped
+#    command:
+#      - --spring.datasource.url=jdbc:postgresql://postgres:5432/customer
+
+#    docker run --name full-stack-api --rm -p 1011:1015 \
+#    --network full-stack-professional_postgres mmuratov/full-stack-professional \
+#    --spring.datasource.url=jdbc:postgresql://postgres:5432/customer
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
