@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:16.2
+        image: postgres
         env:
           POSTGRES_USER: muzaffar
           POSTGRES_PASSWORD: muzaffar
