@@ -30,17 +30,17 @@ jobs:
         working-directory: ./backend
 
     steps:
-      - name: Send Slack Message
-        run: >
-          curl -X POST -H 'Content-type: application/json' 
-          --data '{"text":"Deployment started :progress_bar: :fingerscrossed:"}
-          ' 
-          ${{ secrets.SLACK_WEBHOOK_URL }}
       - uses: actions/checkout@v4
       - name: Slack commit message and sha
         run: >
           curl -X POST -H 'Content-type: application/json'
           --data '{"text":":github: https://github.com/muzaffar-mz/full-stack-prof/commit/${{ github.SHA }} - ${{ github.event.head_commit.message }}"}' 
+          ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Send Slack Message
+        run: >
+          curl -X POST -H 'Content-type: application/json' 
+          --data '{"text":"Deployment started :progress_bar: :fingerscrossed:"}
+          ' 
           ${{ secrets.SLACK_WEBHOOK_URL }}
       - uses: actions/setup-java@v4
         with:
