@@ -8,6 +8,7 @@ package com.muzaffar.customer;
 public record CustomerEditRequest(
         String name,
         String email,
-        Integer age
+        Integer age,
+        Integer gender
 ) {
 }

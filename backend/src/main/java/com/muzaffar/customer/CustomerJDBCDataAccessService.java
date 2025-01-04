@@ -2,7 +2,6 @@ package com.muzaffar.customer;
 
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class CustomerJDBCDataAccessService implements CustomerDao {
     @Override
     public List<Customer> selectAllCustomers() {
         var sql = """
-                SELECT id, name, email, age
+                SELECT id, name, email, age, gender
                 FROM customer
                 """;
 
@@ -36,7 +35,7 @@ public class CustomerJDBCDataAccessService implements CustomerDao {
     @Override
     public Optional<Customer> selectCustomerById(long id) {
         var sql = """
-                SELECT id, name, email, age
+                SELECT id, name, email, age, gender
                 FROM customer
                 WHERE id = ?
                 """;
@@ -49,11 +48,11 @@ public class CustomerJDBCDataAccessService implements CustomerDao {
     @Override
     public void insertCustomer(Customer customer) {
         var sql = """
-                INSERT INTO customer(name, email, age)
-                VALUES (?, ?, ?)
+                INSERT INTO customer(name, email, age, gender)
+                VALUES (?, ?, ?, ?)
                 """;
 
-        int result = jdbcTemplate.update(sql, customer.getName(), customer.getEmail(), customer.getAge());
+        int result = jdbcTemplate.update(sql, customer.getName(), customer.getEmail(), customer.getAge(), customer.getGender());
         System.out.println("jdbcTemplate.update = " + result);
 
     }
@@ -104,6 +103,12 @@ public class CustomerJDBCDataAccessService implements CustomerDao {
             String sql = "UPDATE customer SET age = ? WHERE id = ?";
             int result = jdbcTemplate.update(sql, update.getAge(), update.getId());
             System.out.println("update customer age result = " + result);
+        }
+
+        if (update.getGender() != null) {
+            String sql = "UPDATE customer SET gender = ? WHERE id = ?";
+            int result = jdbcTemplate.update(sql, update.getGender(), update.getId());
+            System.out.println("update customer gender result = " + result);
         }
 
         if (update.getEmail() != null) {

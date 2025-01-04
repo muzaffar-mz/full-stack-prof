@@ -34,7 +34,8 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID(),
-                20
+                20,
+                0
         );
         underTest.insertCustomer(customer);
 
@@ -52,7 +53,8 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
+                20,
+                0
         );
 
         underTest.insertCustomer(customer);
@@ -93,7 +95,8 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
+                20,
+                0
         );
 
         // When
@@ -118,7 +121,8 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
+                20,
+                0
         );
         underTest.insertCustomer(customer);
 
@@ -148,7 +152,8 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
+                20,
+                0
         );
 
         underTest.insertCustomer(customer);
@@ -185,7 +190,8 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
+                20,
+                0
         );
 
         underTest.insertCustomer(customer);
@@ -211,7 +217,8 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
+                20,
+                0
         );
 
         underTest.insertCustomer(customer);

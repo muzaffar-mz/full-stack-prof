@@ -7,11 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 @SpringBootApplication
@@ -31,12 +27,15 @@ public class FullStackProfessionalApplication {
 			var name = faker.name();
 			var firstName = name.firstName();
 			var lastName = name.lastName();
+			var gender = random.nextInt(2);
 
 
 			Customer customer = new Customer(
 					firstName + " " + lastName,
-					firstName.toLowerCase() + "." + lastName.toLowerCase() + "@amigoscode.com",
-					random.nextInt(16, 99));
+					firstName.toLowerCase() + "." + lastName.toLowerCase() + "@gmail.com",
+					random.nextInt(16, 99),
+					gender
+			);
 			customerRepository.save(customer);
 		};
 	}

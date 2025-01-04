@@ -45,18 +45,24 @@ public class Customer {
             nullable = false
     )
     private Integer age;
+    @Column(
+            nullable = false
+    )
+    private Integer gender;
 
-    public Customer(Long id, String name, String email, Integer age) {
+    public Customer(Long id, String name, String email, Integer age, Integer gender) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.age = age;
+        this.gender = gender;
     }
 
-    public Customer(String name, String email, Integer age) {
+    public Customer(String name, String email, Integer age, Integer gender) {
         this.name = name;
         this.email = email;
         this.age = age;
+        this.gender = gender;
     }
 
     public Customer() {
@@ -94,17 +100,26 @@ public class Customer {
         this.age = age;
     }
 
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Customer customer = (Customer) o;
-        return Objects.equals(id, customer.id) && Objects.equals(name, customer.name) && Objects.equals(email, customer.email) && Objects.equals(age, customer.age);
+        return id.equals(customer.id) && name.equals(customer.name) && email.equals(customer.email) && age.equals(customer.age) && gender.equals(customer.gender);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, age);
+        return Objects.hash(id, name, email, age, gender);
     }
 
     @Override
@@ -114,6 +129,7 @@ public class Customer {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
+                ", gender=" + gender +
                 '}';
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created on 05/11/24.
@@ -34,7 +33,8 @@ class CustomerRepositoryTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20
+                20,
+                0
         );
         underTest.save(customer);
 

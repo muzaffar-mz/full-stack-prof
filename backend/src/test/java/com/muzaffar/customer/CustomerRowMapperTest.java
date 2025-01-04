@@ -1,6 +1,5 @@
 package com.muzaffar.customer;
 
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 
 import java.sql.ResultSet;
@@ -24,6 +23,7 @@ class CustomerRowMapperTest {
         ResultSet resultSet = mock(ResultSet.class);
         when(resultSet.getLong("id")).thenReturn(1L);
         when(resultSet.getInt("age")).thenReturn(20);
+        when(resultSet.getInt("gender")).thenReturn(0);
         when(resultSet.getString("name")).thenReturn("Jamila");
         when(resultSet.getString("email")).thenReturn("jamila@gmail.com");
 
@@ -31,7 +31,7 @@ class CustomerRowMapperTest {
         Customer actual = customerRowMapper.mapRow(resultSet, 1);
 
         // Then
-        Customer expected = new Customer(1L, "Jamila", "jamila@gmail.com", 20);
+        Customer expected = new Customer(1L, "Jamila", "jamila@gmail.com", 20, 0);
         assertThat(actual).isEqualTo(expected);
     }
 }

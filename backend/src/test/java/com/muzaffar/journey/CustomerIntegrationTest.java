@@ -41,9 +41,10 @@ public class CustomerIntegrationTest {
         var name = fakerName.fullName();
         var email = fakerName.lastName() + "-" + UUID.randomUUID() + "@amigoscode.com";
         int age = RANDOM.nextInt(1, 100);
+        int gender = RANDOM.nextInt(2);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                name, email, age
+                name, email, age, gender
         );
 
         // send a post request
@@ -70,7 +71,7 @@ public class CustomerIntegrationTest {
                 .getResponseBody();
 
         // make sre that customer is present
-        var expectedCustomer = new Customer(name, email, age);
+        var expectedCustomer = new Customer(name, email, age, gender);
 
         assertThat(allCustomers)
                 .usingRecursiveFieldByFieldElementComparatorIgnoringFields("id")
@@ -106,9 +107,10 @@ public class CustomerIntegrationTest {
         var name = fakerName.fullName();
         var email = fakerName.lastName() + "-" + UUID.randomUUID() + "@amigoscode.com";
         int age = RANDOM.nextInt(1, 100);
+        int gender = RANDOM.nextInt(2);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                name, email, age
+                name, email, age, gender
         );
 
         // send a post request
@@ -165,9 +167,10 @@ public class CustomerIntegrationTest {
         var name = fakerName.fullName();
         var email = fakerName.lastName() + "-" + UUID.randomUUID() + "@amigoscode.com";
         int age = RANDOM.nextInt(1, 100);
+        int gender = RANDOM.nextInt(2);
 
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
-                name, email, age
+                name, email, age, gender
         );
 
         // send a post request
@@ -204,9 +207,10 @@ public class CustomerIntegrationTest {
         var newName = name + "_new";
         var newAge = age + 15;
         var newEmail = "new_" + email;
+        var newGender = gender == 0 ? 1 : 0;
 
         var editRequest = new CustomerEditRequest(
-                newName, newEmail, newAge
+                newName, newEmail, newAge, newGender
         );
 
         webTestClient.put()
@@ -230,7 +234,7 @@ public class CustomerIntegrationTest {
                 .returnResult()
                 .getResponseBody();
 
-        var expected = new Customer(id, newName, newEmail, newAge);
+        var expected = new Customer(id, newName, newEmail, newAge, newGender);
         assertThat(updatedCustomer).isEqualTo(expected);
     }
 }

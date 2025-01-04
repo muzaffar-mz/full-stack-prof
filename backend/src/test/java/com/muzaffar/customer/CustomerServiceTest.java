@@ -50,7 +50,7 @@ class CustomerServiceTest {
     void canGetCustomerById() {
         // Given
         long id = 10;
-        var customer = new Customer(id, "Alex", "alex@gmail.com", 19);
+        var customer = new Customer(id, "Alex", "alex@gmail.com", 19, 0);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         // When
@@ -84,7 +84,8 @@ class CustomerServiceTest {
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 "Alex",
                 email,
-                19
+                19,
+                0
         );
 
 
@@ -111,7 +112,8 @@ class CustomerServiceTest {
         CustomerRegistrationRequest request = new CustomerRegistrationRequest(
                 "Alex",
                 email,
-                19
+                19,
+                0
         );
 
 
@@ -160,12 +162,12 @@ class CustomerServiceTest {
     void editCustomerById() {
         // Given
         long id = 10;
-        var customer = new Customer(id, "Alex", "alex@gmail.com", 19);
+        var customer = new Customer(id, "Alex", "alex@gmail.com", 19, 0);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         String newEmail = "alex_new@gmail.com";
         var request = new CustomerEditRequest(
-                "Alexandro", newEmail, 20);
+                "Alexandro", newEmail, 20, 0);
 
         when(customerDao.existsCustomerWithEmail(newEmail)).thenReturn(false);
 
@@ -181,18 +183,19 @@ class CustomerServiceTest {
         assertThat(capturedCustomer.getName()).isEqualTo(request.name());
         assertThat(capturedCustomer.getEmail()).isEqualTo(request.email());
         assertThat(capturedCustomer.getAge()).isEqualTo(request.age());
+        assertThat(capturedCustomer.getGender()).isEqualTo(request.gender());
     }
 
     @Test
     void canUpdateOnlyCustomerName() {
         // Given
         long id = 10;
-        var customer = new Customer(id, "Alex", "alex@gmail.com", 19);
+        var customer = new Customer(id, "Alex", "alex@gmail.com", 19, 0);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
 
         var request = new CustomerEditRequest(
-                "Alexandro", null, null);
+                "Alexandro", null, null, null);
 
 
         // When
@@ -207,18 +210,19 @@ class CustomerServiceTest {
         assertThat(capturedCustomer.getName()).isEqualTo(request.name());
         assertThat(capturedCustomer.getEmail()).isEqualTo(customer.getEmail());
         assertThat(capturedCustomer.getAge()).isEqualTo(customer.getAge());
+        assertThat(capturedCustomer.getGender()).isEqualTo(customer.getGender());
     }
 
     @Test
     void canUpdateOnlyCustomerEmail() {
         // Given
         long id = 10;
-        var customer = new Customer(id, "Alex", "alex@gmail.com", 19);
+        var customer = new Customer(id, "Alex", "alex@gmail.com", 19, 0);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         String newEmail = "alex_new@gmail.com";
         var request = new CustomerEditRequest(
-                null, newEmail, null);
+                null, newEmail, null, null);
 
         when(customerDao.existsCustomerWithEmail(newEmail)).thenReturn(false);
 
@@ -235,19 +239,20 @@ class CustomerServiceTest {
         assertThat(capturedCustomer.getName()).isEqualTo(customer.getName());
         assertThat(capturedCustomer.getEmail()).isEqualTo(request.email());
         assertThat(capturedCustomer.getAge()).isEqualTo(customer.getAge());
+        assertThat(capturedCustomer.getGender()).isEqualTo(customer.getGender());
     }
 
     @Test
     void canUpdateOnlyCustomerAge() {
         // Given
         long id = 10;
-        var customer = new Customer(id, "Alex", "alex@gmail.com", 19);
+        var customer = new Customer(id, "Alex", "alex@gmail.com", 19, 0);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
 
         int age = 45;
         var request = new CustomerEditRequest(
-                null, null, age);
+                null, null, age, null);
 
 
         // When
@@ -261,7 +266,36 @@ class CustomerServiceTest {
 
         assertThat(capturedCustomer.getName()).isEqualTo(customer.getName());
         assertThat(capturedCustomer.getEmail()).isEqualTo(customer.getEmail());
+        assertThat(capturedCustomer.getGender()).isEqualTo(customer.getGender());
         assertThat(capturedCustomer.getAge()).isEqualTo(age);
+    }
+
+    @Test
+    void canUpdateOnlyCustomerGender() {
+        // Given
+        long id = 10;
+        var customer = new Customer(id, "Alex", "alex@gmail.com", 19, 0);
+        when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
+
+
+        int gender = 1;
+        var request = new CustomerEditRequest(
+                null, null, null, gender);
+
+
+        // When
+        underTest.editCustomerById(id, request);
+
+        // Then
+        ArgumentCaptor<Customer> customerArgumentCaptor = ArgumentCaptor.forClass(Customer.class);
+
+        verify(customerDao).updateCustomer(customerArgumentCaptor.capture());
+        var capturedCustomer = customerArgumentCaptor.getValue();
+
+        assertThat(capturedCustomer.getName()).isEqualTo(customer.getName());
+        assertThat(capturedCustomer.getEmail()).isEqualTo(customer.getEmail());
+        assertThat(capturedCustomer.getAge()).isEqualTo(customer.getAge());
+        assertThat(capturedCustomer.getGender()).isEqualTo(gender);
     }
 
 
@@ -269,12 +303,12 @@ class CustomerServiceTest {
     void willThrowWhenTryingToUpdateCustomerEmailWhenAlreadyTaken() {
         // Given
         long id = 10;
-        var customer = new Customer(id, "Alex", "alex@gmail.com", 19);
+        var customer = new Customer(id, "Alex", "alex@gmail.com", 19, 0);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         String newEmail = "alex_new@gmail.com";
         var request = new CustomerEditRequest(
-                null, newEmail, null);
+                null, newEmail, null, null);
 
         when(customerDao.existsCustomerWithEmail(newEmail)).thenReturn(true);
 
@@ -292,11 +326,11 @@ class CustomerServiceTest {
     void willThrowWhenCustomerUpdateHasNoChanges() {
         // Given
         long id = 10;
-        var customer = new Customer(id, "Alex", "alex@gmail.com", 19);
+        var customer = new Customer(id, "Alex", "alex@gmail.com", 19, 0);
         when(customerDao.selectCustomerById(id)).thenReturn(Optional.of(customer));
 
         var request = new CustomerEditRequest(
-                customer.getName(), customer.getEmail(), customer.getAge());
+                customer.getName(), customer.getEmail(), customer.getAge(), customer.getGender());
 
 
         // When

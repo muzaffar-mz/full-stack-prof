@@ -1,7 +1,6 @@
 package com.muzaffar.customer;
 
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -21,9 +20,9 @@ public class CustomerListDataAccessService implements CustomerDao{
     static {
         customers = new ArrayList<>();
 
-        Customer alex = new Customer(1L, "Alex", "alex@gmail.com", 30);
+        Customer alex = new Customer(1L, "Alex", "alex@gmail.com", 30, 0);
         customers.add(alex);
-        Customer jamila = new Customer(2L, "Jamila", "jamila@gmail.com", 19);
+        Customer jamila = new Customer(2L, "Jamila", "jamila@gmail.com", 19, 1);
         customers.add(jamila);
     }
 
