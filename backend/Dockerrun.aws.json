@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "full-stack-professional",
-      "image": "mmuratov/full-stack-professional:13.12.2024.06.09.12",
+      "image": "mmuratov/full-stack-professional:latest",
       "essential": true,
       "memory": 512,
       "portMappings": [
@@ -15,7 +15,7 @@
       "environment": [
         {
           "name": "SPRING_DATASOURCE_URL",
-          "value": "jdbc:postgresql://awseb-e-enyb6yz7nc-stack-awsebrdsdatabase-o308lcnha1h0.cp4yowk0q4uo.ap-south-1.rds.amazonaws.com:5432/customer"
+          "value": "jdbc:postgresql://awseb-e-pgf3tjztv4-stack-awsebrdsdatabase-7ppgkr0erysq.cp4yowk0q4uo.ap-south-1.rds.amazonaws.com:5432/customer"
         }
       ]
     }
