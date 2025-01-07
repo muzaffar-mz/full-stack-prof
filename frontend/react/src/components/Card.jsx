@@ -11,10 +11,13 @@ import {
     Stack,
     Tag,
     useColorModeValue,
+    Button, useDisclosure,
 } from '@chakra-ui/react'
+import DeleteCustomerAlertDialog from "./DeleteCustomerAlertDialog.jsx";
 
-export default function CardWithImage({id, name, email, age, gender, imageNumber}) {
+export default function CardWithImage({ id, name, email, age, gender, imageNumber, fetchCustomers }) {
     const randomUserGender = gender === 0 ? "men" : "women";
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <Center py={6}>
@@ -47,16 +50,25 @@ export default function CardWithImage({id, name, email, age, gender, imageNumber
                 </Flex>
 
                 <Box p={6}>
-                    <Stack spacing={2} align={'center'} mb={5}>
+                    <Stack spacing={2} align={'center'}>
                         <Tag borderRadius={"full"}>{id}</Tag>
                         <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
                             {name}
                         </Heading>
                         <Text color={'gray.500'}>{email}</Text>
                         <Text color={'gray.500'}>Age {age} | {gender === 0? "MALE" : "FEMALE"}</Text>
+                        <Button colorScheme='red' onClick={onOpen}>
+                            Delete Customer
+                        </Button>
                     </Stack>
                 </Box>
             </Box>
+            <DeleteCustomerAlertDialog
+                isOpen={isOpen}
+                onClose={onClose}
+                id={id}
+                fetchCustomers={fetchCustomers}
+            />
         </Center>
     )
 }
