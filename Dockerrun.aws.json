@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "full-stack-prof-react",
-      "image": "mmuratov/fullstack-prof-react:last",
+      "image": "mmuratov/fullstack-prof-react:14.01.2025.10.07.20",
       "essential": true,
       "memory": 256,
       "portMappings": [
