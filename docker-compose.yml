@@ -25,12 +25,18 @@ services:
     depends_on:
       - db
     restart: unless-stopped
-#    command:
-#      - --spring.datasource.url=jdbc:postgresql://postgres:5432/customer
-
-#    docker run --name full-stack-api --rm -p 1011:1015 \
-#    --network full-stack-professional_postgres mmuratov/full-stack-professional \
-#    --spring.datasource.url=jdbc:postgresql://postgres:5432/customer
+  fullstack-react:
+    container_name: fullstack-react
+    image: mmuratov/fullstack-prof-react
+    build:
+      context: frontend/react
+      args:
+        api_base_url: http://localhost:1011
+    ports:
+      - "3000:5173"
+    depends_on:
+      - full-stack-api
+    restart: unless-stopped
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4

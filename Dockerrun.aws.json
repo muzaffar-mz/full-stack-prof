@@ -2,13 +2,25 @@
   "AWSEBDockerrunVersion": 2,
   "containerDefinitions": [
     {
+      "name": "full-stack-prof-react",
+      "image": "mmuratov/fullstack-prof-react:last",
+      "essential": true,
+      "memory": 256,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 5173
+        }
+      ]
+    },
+    {
       "name": "full-stack-professional",
       "image": "mmuratov/full-stack-professional:05.01.2025.10.44.41",
       "essential": true,
       "memory": 512,
       "portMappings": [
         {
-          "hostPort": 80,
+          "hostPort": 1011,
           "containerPort": 1015
         }
       ],

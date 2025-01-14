@@ -9,29 +9,36 @@ import {
     useDisclosure
 } from "@chakra-ui/react"
 import CreateCustomerForm from "./CreateCustomerForm.jsx";
+import UpdateCustomerForm from "./UpdateCustomerForm.jsx";
 
-const AddIcon = () => "+";
 const CloseIcon = () => "x";
 
-const DrawerForm = ({ fetchCustomers }) => {
+const UpdateCustomerDrawer = ({ fetchCustomers, initialValues, customerId }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return <>
         <Button
-            leftIcon = {<AddIcon/>}
-            colorScheme={"teal"}
+            bg={'gray.200'}
+            color={'black'}
+            rounded={'full'}
+            _hover={{
+                transform: 'translateY(-2px)',
+                boxShadow: 'lg'
+            }}
             onClick={onOpen}
-            >
-            Create customer
+        >
+            Update
         </Button>
         <Drawer isOpen={isOpen} onClose={onClose} size={"xl"}>
             <DrawerOverlay />
             <DrawerContent>
                 <DrawerCloseButton />
-                <DrawerHeader>Create new customer</DrawerHeader>
+                <DrawerHeader>Update customer</DrawerHeader>
 
                 <DrawerBody>
-                    <CreateCustomerForm
+                    <UpdateCustomerForm
                         fetchCustomers={fetchCustomers}
+                        initialValues={initialValues}
+                        customerId={customerId}
                     />
                 </DrawerBody>
 
@@ -49,4 +56,4 @@ const DrawerForm = ({ fetchCustomers }) => {
     </>
 }
 
-export default DrawerForm;
+export default UpdateCustomerDrawer;
