@@ -15,7 +15,7 @@
     },
     {
       "name": "full-stack-professional",
-      "image": "mmuratov/full-stack-professional:05.01.2025.10.44.41",
+      "image": "mmuratov/full-stack-professional:14.01.2025.10.13.50",
       "essential": true,
       "memory": 512,
       "portMappings": [
