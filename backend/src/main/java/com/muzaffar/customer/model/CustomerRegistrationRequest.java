@@ -1,4 +1,4 @@
-package com.muzaffar.customer;
+package com.muzaffar.customer.model;
 
 
 /**
@@ -8,6 +8,7 @@ package com.muzaffar.customer;
 public record CustomerRegistrationRequest(
         String name,
         String email,
+        String password,
         Integer age,
         Integer gender
 ) {

@@ -1,6 +1,7 @@
-package com.muzaffar.customer;
+package com.muzaffar.customer.repo;
 
 
+import com.muzaffar.customer.entity.Customer;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +20,7 @@ public class CustomerRowMapper implements RowMapper<Customer> {
                 rs.getLong("id"),
                 rs.getString("name"),
                 rs.getString("email"),
+                rs.getString("password"),
                 rs.getInt("age"),
                 rs.getInt("gender")
         );

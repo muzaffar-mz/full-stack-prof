@@ -1,6 +1,9 @@
 package com.muzaffar.customer;
 
 import com.muzaffar.AbstractTestcontainers;
+import com.muzaffar.customer.entity.Customer;
+import com.muzaffar.customer.repo.CustomerJDBCDataAccessService;
+import com.muzaffar.customer.repo.CustomerRowMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,6 +37,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID(),
+                "password",
                 20,
                 0
         );
@@ -53,7 +57,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 0
         );
 
@@ -95,6 +99,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
+                "password",
                 20,
                 0
         );
@@ -121,7 +126,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 0
         );
         underTest.insertCustomer(customer);
@@ -152,7 +157,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 0
         );
 
@@ -190,7 +195,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 0
         );
 
@@ -217,7 +222,7 @@ class CustomerJDBCDataAccessServiceTest extends AbstractTestcontainers {
         var customer = new Customer(
                 FAKER.name().fullName(),
                 email,
-                20,
+                "password", 20,
                 0
         );
 

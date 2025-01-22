@@ -1,5 +1,7 @@
 package com.muzaffar.customer;
 
+import com.muzaffar.customer.entity.Customer;
+import com.muzaffar.customer.repo.CustomerRowMapper;
 import org.junit.jupiter.api.Test;
 
 import java.sql.ResultSet;
@@ -31,7 +33,7 @@ class CustomerRowMapperTest {
         Customer actual = customerRowMapper.mapRow(resultSet, 1);
 
         // Then
-        Customer expected = new Customer(1L, "Jamila", "jamila@gmail.com", 20, 0);
+        Customer expected = new Customer(1L, "Jamila", "jamila@gmail.com", "password", 20, 0);
         assertThat(actual).isEqualTo(expected);
     }
 }

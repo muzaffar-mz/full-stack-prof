@@ -1,6 +1,7 @@
-package com.muzaffar.customer;
+package com.muzaffar.customer.repo;
 
 
+import com.muzaffar.customer.entity.Customer;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Optional;
  */
 
 @Repository("list")
-public class CustomerListDataAccessService implements CustomerDao{
+public class CustomerListDataAccessService implements CustomerDao {
 
 
     private static List<Customer> customers;
@@ -20,9 +21,9 @@ public class CustomerListDataAccessService implements CustomerDao{
     static {
         customers = new ArrayList<>();
 
-        Customer alex = new Customer(1L, "Alex", "alex@gmail.com", 30, 0);
+        Customer alex = new Customer(1L, "Alex", "alex@gmail.com", "password", 30, 0);
         customers.add(alex);
-        Customer jamila = new Customer(2L, "Jamila", "jamila@gmail.com", 19, 1);
+        Customer jamila = new Customer(2L, "Jamila", "jamila@gmail.com", "password", 19, 1);
         customers.add(jamila);
     }
 
@@ -66,5 +67,12 @@ public class CustomerListDataAccessService implements CustomerDao{
     @Override
     public void updateCustomer(Customer customer) {
         customers.add(customer);
+    }
+
+    @Override
+    public Optional<Customer> selectUserByEmail(String email) {
+        return customers.stream()
+                .filter(customer -> customer.getUsername().equals(email))
+                .findFirst();
     }
 }
