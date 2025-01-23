@@ -32,7 +32,7 @@ public class CustomerIntegrationTest {
     private WebTestClient webTestClient;
 
     private static final Random RANDOM = new Random();
-    private static final String CUSTOMER_URI = "/api/v1/customers";
+    private static final String CUSTOMER_PATH = "/api/v1/customers";
 
     @Test
     void canRegisterACustomer() {
@@ -51,7 +51,7 @@ public class CustomerIntegrationTest {
         // send a post request
 
         String token = webTestClient.post()
-                .uri(CUSTOMER_URI)
+                .uri(CUSTOMER_PATH)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(request), CustomerRegistrationRequest.class)
@@ -65,7 +65,7 @@ public class CustomerIntegrationTest {
 
         // get all customers
         List<CustomerDTO> allCustomers = webTestClient.get()
-                .uri(CUSTOMER_URI)
+                .uri(CUSTOMER_PATH)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(AUTHORIZATION, String.format("Bearer %s", token))
                 .exchange()
@@ -90,7 +90,7 @@ public class CustomerIntegrationTest {
 
         // get customer by id
         webTestClient.get()
-                .uri(CUSTOMER_URI + "/{id}", id)
+                .uri(CUSTOMER_PATH + "/{id}", id)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(AUTHORIZATION, String.format("Bearer %s", token))
                 .exchange()
@@ -122,7 +122,7 @@ public class CustomerIntegrationTest {
                 "test44", "test44@mail.ru", "password", 20, 1
         );
         String token = webTestClient.post()
-                .uri(CUSTOMER_URI)
+                .uri(CUSTOMER_PATH)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(
@@ -139,7 +139,7 @@ public class CustomerIntegrationTest {
 
         // send a post request to create customer to delete it later
         webTestClient.post()
-                .uri(CUSTOMER_URI)
+                .uri(CUSTOMER_PATH)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(request), CustomerRegistrationRequest.class)
@@ -150,7 +150,7 @@ public class CustomerIntegrationTest {
 
         // get all customers
         List<CustomerDTO> allCustomers = webTestClient.get()
-                .uri(CUSTOMER_URI)
+                .uri(CUSTOMER_PATH)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(AUTHORIZATION, String.format("Bearer %s", token))
                 .exchange()
@@ -169,7 +169,7 @@ public class CustomerIntegrationTest {
 
         // delete customer
         webTestClient.delete()
-                .uri(CUSTOMER_URI + "/{id}", id)
+                .uri(CUSTOMER_PATH + "/{id}", id)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(AUTHORIZATION, String.format("Bearer %s", token))
                 .exchange()
@@ -178,7 +178,7 @@ public class CustomerIntegrationTest {
 
         // get customer by id
         webTestClient.get()
-                .uri(CUSTOMER_URI + "/{id}", id)
+                .uri(CUSTOMER_PATH + "/{id}", id)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(AUTHORIZATION, String.format("Bearer %s", token))
                 .exchange()
@@ -194,7 +194,7 @@ public class CustomerIntegrationTest {
 
         // delete customer
         webTestClient.delete()
-                .uri(CUSTOMER_URI + "/{id}", mainId)
+                .uri(CUSTOMER_PATH + "/{id}", mainId)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(AUTHORIZATION, String.format("Bearer %s", token))
                 .exchange()
@@ -221,7 +221,7 @@ public class CustomerIntegrationTest {
                 "test4", "test4@mail.ru", "password", 20, 1
         );
         String token = webTestClient.post()
-                .uri(CUSTOMER_URI)
+                .uri(CUSTOMER_PATH)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(
@@ -237,7 +237,7 @@ public class CustomerIntegrationTest {
                 .get(0);
 
         webTestClient.post()
-                .uri(CUSTOMER_URI)
+                .uri(CUSTOMER_PATH)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(request), CustomerRegistrationRequest.class)
@@ -247,7 +247,7 @@ public class CustomerIntegrationTest {
 
         // get all customers
         List<CustomerDTO> allCustomers = webTestClient.get()
-                .uri(CUSTOMER_URI)
+                .uri(CUSTOMER_PATH)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(AUTHORIZATION, String.format("Bearer %s", token))
                 .exchange()
@@ -276,7 +276,7 @@ public class CustomerIntegrationTest {
         );
 
         webTestClient.put()
-                .uri(CUSTOMER_URI + "/{id}", id)
+                .uri(CUSTOMER_PATH + "/{id}", id)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(Mono.just(editRequest), CustomerEditRequest.class)
@@ -288,7 +288,7 @@ public class CustomerIntegrationTest {
 
         // get customer by id
         CustomerDTO updatedCustomer = webTestClient.get()
-                .uri(CUSTOMER_URI + "/{id}", id)
+                .uri(CUSTOMER_PATH + "/{id}", id)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(AUTHORIZATION, String.format("Bearer %s", token))
                 .exchange()
@@ -310,7 +310,7 @@ public class CustomerIntegrationTest {
 
         // delete customer
         webTestClient.delete()
-                .uri(CUSTOMER_URI + "/{id}", mainId)
+                .uri(CUSTOMER_PATH + "/{id}", mainId)
                 .accept(MediaType.APPLICATION_JSON)
                 .header(AUTHORIZATION, String.format("Bearer %s", token))
                 .exchange()
