@@ -1,5 +1,7 @@
-package com.muzaffar.customer;
+package com.muzaffar.customer.repo;
 
+
+import com.muzaffar.customer.entity.Customer;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,4 +21,6 @@ public interface CustomerDao {
     void deleteById(long id);
 
     void updateCustomer(Customer customer);
+
+    Optional<Customer> selectUserByEmail(String email);
 }

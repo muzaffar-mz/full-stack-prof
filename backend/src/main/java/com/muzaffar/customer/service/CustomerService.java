@@ -1,10 +1,17 @@
-package com.muzaffar.customer;
+package com.muzaffar.customer.service;
 
 
+import com.muzaffar.customer.entity.Customer;
+import com.muzaffar.customer.model.CustomerDTO;
+import com.muzaffar.customer.model.CustomerDTOMapper;
+import com.muzaffar.customer.model.CustomerEditRequest;
+import com.muzaffar.customer.model.CustomerRegistrationRequest;
+import com.muzaffar.customer.repo.CustomerDao;
 import com.muzaffar.exception.DuplicateResourceException;
 import com.muzaffar.exception.RequestValidationException;
 import com.muzaffar.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,17 +24,26 @@ import java.util.List;
 public class CustomerService {
 
     private final CustomerDao customerDao;
+    private final CustomerDTOMapper customerDTOMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public CustomerService(@Qualifier("jdbc") CustomerDao customerDao) {
+    public CustomerService(@Qualifier("jdbc") CustomerDao customerDao, CustomerDTOMapper customerDTOMapper,
+                           PasswordEncoder passwordEncoder) {
         this.customerDao = customerDao;
+        this.customerDTOMapper = customerDTOMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public List<Customer> getAllCustomers() {
-        return customerDao.selectAllCustomers();
+    public List<CustomerDTO> getAllCustomers() {
+        return customerDao.selectAllCustomers()
+                .stream()
+                .map(customerDTOMapper)
+                .toList();
     }
 
-    public Customer getCustomerById(long id) {
+    public CustomerDTO getCustomerById(long id) {
         return customerDao.selectCustomerById(id)
+                .map(customerDTOMapper)
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Customer with id [" + id + "] not found")
                 );
@@ -41,7 +57,7 @@ public class CustomerService {
 
         //add
         customerDao.insertCustomer(
-                new Customer(request.name(), request.email(), request.age(), request.gender())
+                new Customer(request.name(), request.email(), passwordEncoder.encode(request.password()), request.age(), request.gender())
         );
     }
 
@@ -56,7 +72,10 @@ public class CustomerService {
 
 
     public void editCustomerById(Long id, CustomerEditRequest request) {
-        var customer = getCustomerById(id);
+        var customer = customerDao.selectCustomerById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Customer with id [" + id + "] not found")
+                );
 
         boolean changesMade = false;
         if (request.name() != null && !request.name().equals(customer.getName())) {

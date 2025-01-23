@@ -1,5 +1,8 @@
 package com.muzaffar.customer;
 
+import com.muzaffar.customer.entity.Customer;
+import com.muzaffar.customer.repo.CustomerJPADataAccessService;
+import com.muzaffar.customer.repo.CustomerRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,7 +61,7 @@ class CustomerJPADataAccessServiceTest {
         var customer = new Customer(
                 "John",
                 "john@gmail.com",
-                20,
+                "password", 20,
                 0
         );
 
@@ -111,7 +114,7 @@ class CustomerJPADataAccessServiceTest {
         var customer = new Customer(
                 "John",
                 "john@gmail.com",
-                20,
+                "password", 20,
                 0
         );
 

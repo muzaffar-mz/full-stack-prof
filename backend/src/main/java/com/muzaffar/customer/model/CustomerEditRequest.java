@@ -1,4 +1,4 @@
-package com.muzaffar.customer;
+package com.muzaffar.customer.model;
 
 
 /**
