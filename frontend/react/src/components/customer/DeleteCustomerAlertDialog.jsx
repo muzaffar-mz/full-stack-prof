@@ -6,8 +6,8 @@ import {
     AlertDialogOverlay, Button
 } from "@chakra-ui/react";
 import React from "react";
-import {deleteCustomer} from "../services/client.js";
-import {errorNotification, successNotification} from "../services/notification.js";
+import {deleteCustomer} from "../../services/client.js";
+import {errorNotification, successNotification} from "../../services/notification.js";
 
 const DeleteCustomerAlertDialog = ({ isOpen, onClose, id, fetchCustomers }) => {
     const cancelRef = React.useRef()
