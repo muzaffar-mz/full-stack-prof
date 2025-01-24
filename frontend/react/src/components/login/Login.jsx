@@ -1,9 +1,7 @@
 import {
     Button,
-    Checkbox,
     Flex,
     Text,
-    FormControl,
     FormLabel,
     Heading,
     Input,
@@ -14,6 +12,8 @@ import {Formik, Form, useField} from "formik";
 import * as Yup from 'yup'
 import {useAuth} from "../context/AuthContext.jsx";
 import {errorNotification} from "../../services/notification.js";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
 const MyTextInput = ({ label, ...props }) => {
     // useField() returns [formik.getFieldProps(), formik.getFieldMeta()]
@@ -36,6 +36,9 @@ const MyTextInput = ({ label, ...props }) => {
 
 const LoginForm = () => {
     const { login } = useAuth();
+
+    const navigate = useNavigate();
+
     return (
         <Formik
             validateOnMount={true}
@@ -54,7 +57,8 @@ const LoginForm = () => {
                 setSubmitting(true);
                 login(values).then(res => {
                     // TODO: navigate to dashboard
-                    console.log("Success login", res)
+                    navigate("/dashboard")
+                    console.log("Successfully logined in")
                 }).catch(err => {
                     errorNotification(
                         err.code,
@@ -93,7 +97,14 @@ const LoginForm = () => {
 
 const Login = () => {
 
-    useAuth();
+    const { customer } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (customer) {
+            navigate("/dashboard");
+        }
+    })
 
     return (
         <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
