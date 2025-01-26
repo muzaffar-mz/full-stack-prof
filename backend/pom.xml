@@ -102,6 +102,12 @@
             <artifactId>spring-security-test</artifactId>
         </dependency>
 
+<!--        Actuator-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
 <!--        JSON WEB TOKEN-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
