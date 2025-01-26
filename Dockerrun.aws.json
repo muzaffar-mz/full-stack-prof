@@ -3,7 +3,7 @@
   "containerDefinitions": [
     {
       "name": "full-stack-professional",
-      "image": "mmuratov/full-stack-professional:23.01.2025.16.11.22",
+      "image": "mmuratov/full-stack-professional:26.01.2025.16.16.35",
       "essential": true,
       "memory": 512,
       "portMappings": [
